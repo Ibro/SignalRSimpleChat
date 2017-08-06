@@ -18,12 +18,19 @@ namespace SignalRSimpleChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {         
             app.UseStaticFiles();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Chat>("chat");
+            });
 
             app.UseMvcWithDefaultRoute();
         }
