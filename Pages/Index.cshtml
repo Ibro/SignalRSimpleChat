@@ -4,8 +4,23 @@
     ViewData["Title"] = "Home page";
 }
 
+<script>
+    function continueToChat() {
+        debugger;
+        $('#spn-nick').text($('#nick').val());
+        $('#entrance').hide();
+        $('#chat').show();
+    }
+</script>
 
-<div id="chat">
+<div id="entrance">
+    <label for="nick">Enter your nickname:</label>
+    <input type="text" id="nick" />
+    <button onclick="continueToChat()">Continue</button>
+</div>
+
+<div id="chat" style="display: none">
+    <h3 id="spn-nick"></h3>
     <form id="frm-send-message" action="#">
         <label for="message">Message:</label>
         <input type="text" id="message" />
@@ -14,9 +29,8 @@
     <div class="clear">
     </div>
     <ul id="messages"></ul>
-
-
 </div>
+
 <script src="js/signalr-client.js"></script>
 
 <script>
@@ -25,25 +39,32 @@
     let connection = new signalR.HubConnection(http);
     connection.start();
 
-    connection.on('Send', (message) => {
-        appendLine(message);    
+    connection.on('Send', (nick, message) => {
+        appendLine(nick, message);    
     });
 
     document.getElementById('frm-send-message').addEventListener('submit', event => {
-        let message = document.getElementById('message').value;
-        document.getElementById('message').value = '';
+        let message = $('#message').val();
+        let nick = $('#spn-nick').text();
 
-        connection.invoke('Send', message).catch(err => appendLine(err, 'red'));   
+        $('#message').val('');
+    
+        connection.invoke('Send', nick, message);   
         event.preventDefault();
     });
 
-    function appendLine(line, color) {
+    function appendLine(nick, message, color) {  
+        let nameElement = document.createElement('strong');      
+        nameElement.innerText = `${nick}:`;
+
+        let msgElement = document.createElement('em');
+        msgElement.innerText = ` ${message}`;
+
         let li = document.createElement('li');
-        if (color) {
-            li.style.color = color;
-        }
-        li.innerText = line;
-        document.getElementById('messages').appendChild(li);
+        li.appendChild(nameElement);
+        li.appendChild(msgElement);
+       
+        $('#messages').append(li);
     };
 
 </script>
