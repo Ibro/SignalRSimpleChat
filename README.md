@@ -2,7 +2,7 @@
 1. [.NET Core SDK](https://www.microsoft.com/net/download)
 
 ## How to run the application
-1. Navigate inside of **AngularAspNetCoreSignalR** and enter **_dotnet run_** to start the server app (the packages will be restored automatically)
+1. Run **_dotnet run_** to start the app (the packages will be restored automatically)
 
 
 ### Blog post for this repository: [https://codingblast.com/asp-net-core-signalr-simple-chat/](https://codingblast.com/asp-net-core-signalr-simple-chat/)
