@@ -1,0 +1,27 @@
+<div id="main-container" style="text-align:center">
+  <h1>
+    <a href="https://codingblast.com/asp-net-core-signalr-simple-chat/" target="_new">
+      ASP.NET Core SignalR Chat with Angular
+    </a>
+  </h1>
+
+  <div class="container">
+    <h2>Hello {{nick}}!</h2>
+    <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+      <div>
+        <label for="message">Message</label>
+        <input type="text" id="message" name="message" [(ngModel)]="message" required>
+      </div>
+      <button type="submit" id="sendmessage" [disabled]="!chatForm.valid">
+        Send
+      </button>
+    </form>
+  </div>
+
+  <div class="container" *ngIf="messages.length > 0">
+    <div *ngFor="let message of messages">
+      <span>{{message}}</span>
+    </div>
+  </div>
+
+</div>
