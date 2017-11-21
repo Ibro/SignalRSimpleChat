@@ -12,3 +12,8 @@ There is a branch for ASP.NET Core SignalR with Angular 5 using Angular CLI. Her
 
 Blog post for SignalR with Angular: [https://codingblast.com/asp-net-core-signalr-chat-angular/](https://codingblast.com/asp-net-core-signalr-chat-angular/)
  
+## ASP.NET Core SignalR with React.js
+There is a branch for ASP.NET Core SignalR with React.js using *creat-react-app*. Here is the link - [https://github.com/Ibro/SignalRSimpleChat/tree/asp-net-core-signalr-react](https://github.com/Ibro/SignalRSimpleChat/tree/asp-net-core-signalr-react)
+
+Blog post for SignalR with React.js: [https://codingblast.com/asp-net-core-signalr-chat-react/](https://codingblast.com/asp-net-core-signalr-chat-react/)
+ 
