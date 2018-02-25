@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public sendMessage(): void {
     this._hubConnection
       .invoke('sendToAll', this.nick, this.message)
+      .then(() => this.message = '')
       .catch(err => console.error(err));
   }
 
