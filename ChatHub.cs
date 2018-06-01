@@ -7,7 +7,7 @@ namespace SignalRSimpleChat
     {      
         public async Task Send(string nick, string message)
         {
-            await Clients.All.InvokeAsync("Send", nick, message);
+            await Clients.All.SendAsync("Send", nick, message);
         }
     }
 }
