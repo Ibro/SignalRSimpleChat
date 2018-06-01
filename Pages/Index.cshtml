@@ -6,7 +6,6 @@
 
 <script>
     function continueToChat() {
-        debugger;
         $('#spn-nick').text($('#nick').val());
         $('#entrance').hide();
         $('#chat').show();
@@ -34,11 +33,13 @@
 <script src="lib/signalr/signalr.min.js"></script>
 
 <script>
-    let transportType = signalR.TransportType.WebSockets;
-    let http = new signalR.HttpConnection(`http://${document.location.host}/chat`, { transport: transportType });
-    let connection = new signalR.HubConnection(http);
-    connection.start();
+    
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chat")
+        .build();
 
+    connection.start().catch(err => console.error(err.toString()));
+    
     connection.on('Send', (nick, message) => {
         appendLine(nick, message);    
     });
