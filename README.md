@@ -1,3 +1,7 @@
+# Personal details
+Follow me on [Twitter](https://twitter.com/ibrahimsuta/)
+
+# Project details
 ## Requirements
 1. [.NET Core SDK](https://www.microsoft.com/net/download)
 
