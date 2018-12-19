@@ -1,5 +1,5 @@
 # Personal details
-Follow me on [Twitter](https://twitter.com/ibrahimsuta/)
+Follow me on [Twitter](https://twitter.com/ibrahimsuta) - [@ibrahimsuta](https://twitter.com/ibrahimsuta)
 
 # Project details
 ## Requirements
