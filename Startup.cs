@@ -26,12 +26,13 @@ namespace SignalRSimpleChat
         {         
             app.UseStaticFiles();
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<Chat>("/chat");
-            });
+            app.UseRouting();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseEndpoints(endpoints =>
+            {
+	            endpoints.MapRazorPages();
+	            endpoints.MapHub<Chat>($"/{nameof(Chat)}");
+            });
         }
     }
 }
