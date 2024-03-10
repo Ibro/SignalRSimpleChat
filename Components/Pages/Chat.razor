@@ -1,0 +1,72 @@
+﻿@page "/chat"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject ChatService ChatService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
+
+<PageTitle>Chat</PageTitle>
+
+<h1>Chat</h1>
+
+@if ( _isChatVisible )
+{
+    <div>
+        <div>
+            Send a message to the chat
+            <input @bind="_newMessage" />
+
+            <button @onclick="SendMessage" class="btn btn-primary">Send</button>
+        </div>
+
+
+        <div>
+            @foreach ( var message in _messages )
+            {
+                <div>
+                    @message
+                </div>
+            }
+        </div>
+
+    </div>
+}
+
+@code {
+    private List<string> _messages = new( );
+    private bool _isChatVisible = false;
+
+    private string _newMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ChatService.OnSendToAllMessage = ChatOnSendToAllMessage;
+
+        await ChatService.ConnectAsync( );
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync( );
+        User = authState.User;
+
+        _isChatVisible = User.Identity.IsAuthenticated;
+
+        await base.OnInitializedAsync( );
+
+        await InvokeAsync( StateHasChanged );
+    }
+
+    private async void ChatOnSendToAllMessage( string user, string message )
+    {
+        var newMessage = $"{user}: {message}";
+        _messages.Add( newMessage );
+        await InvokeAsync( StateHasChanged );
+    }
+
+    public ClaimsPrincipal User { get; set; }
+
+    private async Task SendMessage()
+    {
+        var name = User.Identity.Name;
+        await ChatService.SendToAll( name, _newMessage );
+    }
+}
